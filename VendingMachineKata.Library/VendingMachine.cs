@@ -77,6 +77,7 @@ namespace VendingMachineKata.Library
 
             if (productPrice <= AmountInserted)
             {
+                AmountInserted -= AmountInserted;
                 return true;
             }
             
