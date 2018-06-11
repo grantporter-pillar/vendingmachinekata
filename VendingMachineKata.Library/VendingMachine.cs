@@ -56,5 +56,17 @@ namespace VendingMachineKata.Library
 
             return 0m;
         }
+
+        public bool PurchaseProduct(int productNumber)
+        {
+            var productPrice = GetProductPrice(productNumber);
+
+            if (productPrice > 0m && productPrice <= AmountInserted)
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 }

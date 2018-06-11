@@ -17,5 +17,29 @@ namespace VendingMachineKata.Tests
 
             Assert.IsTrue(vm.GetProductPrice(0) > 0m);
         }
+
+        [TestMethod]
+        public void WhenAProductIsChosenAndEnoughMoneyHasBeenInserted_TheProductIsDispensed()
+        {
+            var vm = new VendingMachine()
+            {
+                Products = new[] { 1.00m },
+                AmountInserted = 1.00m,
+            };
+
+            Assert.IsTrue(vm.PurchaseProduct(0));
+        }
+
+        [TestMethod]
+        public void WhenAProductIsChosenAndNotEnoughMoneyHasBeenInserted_TheProductIsNotDispensed()
+        {
+            var vm = new VendingMachine()
+            {
+                Products = new[] { 1.00m },
+                AmountInserted = 0.50m,
+            };
+
+            Assert.IsFalse(vm.PurchaseProduct(0));
+        }
     }
 }
