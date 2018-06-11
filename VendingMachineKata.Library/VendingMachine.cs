@@ -14,7 +14,7 @@ namespace VendingMachineKata.Library
         {
             if (AmountInserted > 0m)
             {
-                return "0.00";
+                return AmountInserted.ToString();
             }
 
             return @"INSERT COIN";
