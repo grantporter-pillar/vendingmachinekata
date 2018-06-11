@@ -10,7 +10,10 @@ namespace VendingMachineKata.Tests
         [TestMethod]
         public void WhenAProductIsChosen_APriceIsDetermined()
         {
-            var vm = new VendingMachine();
+            var vm = new VendingMachine()
+            {
+                Products = new [] { 1.00m }
+            };
 
             Assert.IsTrue(vm.GetProductPrice(0) > 0m);
         }

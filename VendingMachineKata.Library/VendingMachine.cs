@@ -12,6 +12,8 @@ namespace VendingMachineKata.Library
 
         public List<CoinSpecification> AcceptedCoins { get; set; }
 
+        public decimal[] Products { get; set; }
+        
         public string GetDisplay()
         {
             if (AmountInserted > 0m)
@@ -47,7 +49,12 @@ namespace VendingMachineKata.Library
 
         public decimal GetProductPrice(int productNumber)
         {
-            return 1.00m;
+            if (Products != null && Products.Count() > productNumber)
+            {
+                return Products[productNumber];
+            }
+
+            return 0m;
         }
     }
 }
