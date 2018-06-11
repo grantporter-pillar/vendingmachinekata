@@ -10,7 +10,9 @@ namespace VendingMachineKata.Tests
         [TestMethod]
         public void WhenTheMachineIsReadyToAcceptMoney_TheDisplayReadsInsertCoin()
         {
-            Equals(new VendingMachine().GetDisplay(), @"INSERT COIN");
+            var vm = new VendingMachine();
+
+            Assert.AreEqual(vm.GetDisplay(), @"INSERT COIN");
         }
 
         [TestMethod]
