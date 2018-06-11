@@ -10,6 +10,8 @@ namespace VendingMachineKata.Library
     {
         public decimal AmountInserted { get; set; }
 
+        public List<CoinSpecification> AcceptedCoins { get; set; }
+
         public string GetDisplay()
         {
             if (AmountInserted > 0m)
@@ -22,7 +24,7 @@ namespace VendingMachineKata.Library
 
         public void AcceptCoin(double massGrams, double diameterMillimeters)
         {
-            AmountInserted += 1.00m;
+            AmountInserted += GetCoinValue(massGrams, diameterMillimeters);
         }
 
         public decimal GetCoinValue(double massGrams, double diameterMillimeters)
