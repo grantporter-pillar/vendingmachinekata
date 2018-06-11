@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using VendingMachineKata.Library;
 
 namespace VendingMachineKata.Tests
 {
@@ -9,7 +10,7 @@ namespace VendingMachineKata.Tests
         [TestMethod]
         public void WhenTheMachineIsReadyToAcceptMoney_TheDisplayReadsInsertCoin()
         {
-            Equals(VendingMachine.GetDisplay(), @"INSERT COIN");
+            Equals(new VendingMachine().GetDisplay(), @"INSERT COIN");
         }
     }
 }
