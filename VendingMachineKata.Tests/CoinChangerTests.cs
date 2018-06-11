@@ -57,6 +57,8 @@ namespace VendingMachineKata.Tests
         {
             var vm = new VendingMachine();
             Assert.AreEqual(vm.GetCoinValue(5.000, 21.21), 0.05m); // USA Nickel;
+            Assert.AreEqual(vm.GetCoinValue(2.268, 17.91), 0.10m); // USA Dime;
+            Assert.AreEqual(vm.GetCoinValue(5.670, 24.26), 0.25m); // USA Quarter;
         }
     }
 }

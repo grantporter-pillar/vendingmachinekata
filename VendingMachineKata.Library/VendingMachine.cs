@@ -32,6 +32,16 @@ namespace VendingMachineKata.Library
                 return 0.05m;
             }
 
+            if (massGrams == 2.268 && diameterMillimeters == 17.91) // USA Dime
+            {
+                return 0.10m;
+            }
+
+            if (massGrams == 5.670 && diameterMillimeters == 24.26) // USA Quarter
+            {
+                return 0.25m;
+            }
+
             return 0m;
         }
 
