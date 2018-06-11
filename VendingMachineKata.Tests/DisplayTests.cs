@@ -12,5 +12,15 @@ namespace VendingMachineKata.Tests
         {
             Equals(new VendingMachine().GetDisplay(), @"INSERT COIN");
         }
+
+        [TestMethod]
+        public void WhenTheMachineHasMoneyInserted_TheDisplayReadsAnAmount()
+        {
+            var vm = new VendingMachine();
+
+            vm.AmountInserted = 1.00m;
+
+            Assert.IsTrue(Decimal.TryParse(vm.GetDisplay(), out var amountInserted));
+        }
     }
 }

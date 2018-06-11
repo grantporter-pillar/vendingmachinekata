@@ -8,6 +8,8 @@ namespace VendingMachineKata.Library
 {
     public class VendingMachine
     {
+        public decimal AmountInserted { get; set; }
+
         public string GetDisplay()
         {
             return @"INSERT COIN";
