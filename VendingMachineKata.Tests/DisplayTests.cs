@@ -51,5 +51,19 @@ namespace VendingMachineKata.Tests
 
             Assert.AreEqual(vm.GetDisplay(), @"PRICE $0.50");
         }
+
+        [TestMethod]
+        public void WhenAProductIsPurchased_TheDisplayReadsThankYou()
+        {
+            var vm = new VendingMachine()
+            {
+                Products = new[] { 0.50m },
+                AmountInserted = 0.50m,
+            };
+
+            vm.PurchaseProduct(0);
+
+            Assert.AreEqual(vm.GetDisplay(), @"THANK YOU");
+        }
     }
 }

@@ -78,6 +78,7 @@ namespace VendingMachineKata.Library
             if (productPrice <= AmountInserted)
             {
                 AmountInserted -= AmountInserted;
+                TemporaryDisplay = @"THANK YOU";
                 return true;
             }
             
