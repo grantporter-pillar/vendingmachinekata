@@ -24,5 +24,16 @@ namespace VendingMachineKata.Tests
 
             Assert.IsTrue(Decimal.TryParse(vm.GetDisplay(), out var amountInserted));
         }
+
+        [TestMethod]
+        public void WhenTheMachineHasMoneyInserted_TheDisplayReadsAmountInserted()
+        {
+            var vm = new VendingMachine();
+
+            vm.AmountInserted = 1.00m;
+
+            Assert.IsTrue(Decimal.TryParse(vm.GetDisplay(), out var amountInserted));
+            Assert.AreEqual(vm.AmountInserted, amountInserted);
+        }
     }
 }
