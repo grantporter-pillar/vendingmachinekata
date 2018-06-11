@@ -12,7 +12,7 @@ namespace VendingMachineKata.Tests
         {
             var vm = new VendingMachine()
             {
-                Products = new [] { 1.00m }
+                Prices = new [] { 1.00m }
             };
 
             Assert.IsTrue(vm.GetProductPrice(0) > 0m);
@@ -23,7 +23,8 @@ namespace VendingMachineKata.Tests
         {
             var vm = new VendingMachine()
             {
-                Products = new[] { 1.00m },
+                Prices = new[] { 1.00m },
+                Inventory = new [] { 1 },
                 AmountInserted = 1.00m,
             };
 
@@ -35,7 +36,8 @@ namespace VendingMachineKata.Tests
         {
             var vm = new VendingMachine()
             {
-                Products = new[] { 1.00m },
+                Prices = new[] { 1.00m },
+                Inventory = new[] { 1 },
                 AmountInserted = 0.50m,
             };
 
@@ -47,7 +49,8 @@ namespace VendingMachineKata.Tests
         {
             var vm = new VendingMachine()
             {
-                Products = new[] { 1.00m },
+                Prices = new[] { 1.00m },
+                Inventory = new[] { 1 },
                 AmountInserted = 2.00m,
             };
 

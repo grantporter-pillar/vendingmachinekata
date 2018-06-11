@@ -43,7 +43,8 @@ namespace VendingMachineKata.Tests
         {
             var vm = new VendingMachine()
             {
-                Products = new[] { 0.50m },
+                Prices = new[] { 0.50m },
+                Inventory = new[] { 1 },
                 AmountInserted = 0.25m,
             };
 
@@ -57,13 +58,27 @@ namespace VendingMachineKata.Tests
         {
             var vm = new VendingMachine()
             {
-                Products = new[] { 0.50m },
+                Prices = new[] { 0.50m },
+                Inventory = new[] { 1 },
                 AmountInserted = 0.50m,
             };
 
             vm.PurchaseProduct(0);
 
             Assert.AreEqual(vm.GetDisplay(), @"THANK YOU");
+        }
+
+        [TestMethod]
+        public void WhenAProductChosenIsSoldOut_TheDisplayReadsSoldOut()
+        {
+            var vm = new VendingMachine()
+            {
+                Inventory = new[] { 0 },
+            };
+
+            vm.PurchaseProduct(0);
+
+            Assert.AreEqual(vm.GetDisplay(), @"SOLD OUT");
         }
     }
 }

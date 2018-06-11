@@ -12,7 +12,9 @@ namespace VendingMachineKata.Library
 
         public List<CoinSpecification> AcceptedCoins { get; set; }
 
-        public decimal[] Products { get; set; }
+        public decimal[] Prices { get; set; }
+
+        public int[] Inventory { get; set; }
 
         public string TemporaryDisplay { get; set; }
         
@@ -58,16 +60,34 @@ namespace VendingMachineKata.Library
 
         public decimal GetProductPrice(int productNumber)
         {
-            if (Products != null && Products.Count() > productNumber)
+            if (Prices != null && Prices.Count() > productNumber)
             {
-                return Products[productNumber];
+                return Prices[productNumber];
             }
 
             return 0m;
         }
 
+        public int GetInventory(int productNumber)
+        {
+            if (Inventory != null && Inventory.Count() > productNumber)
+            {
+                return Inventory[productNumber];
+            }
+
+            return 0;
+        }
+
         public bool PurchaseProduct(int productNumber)
         {
+            var productInventory = GetInventory(productNumber);
+
+            if (productInventory < 1)
+            {
+                TemporaryDisplay = @"SOLD OUT";
+                return false;
+            }
+
             var productPrice = GetProductPrice(productNumber);
 
             if (productPrice <= 0m)
