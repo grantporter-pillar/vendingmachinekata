@@ -44,5 +44,10 @@ namespace VendingMachineKata.Library
         {
             AmountInserted = 0m;
         }
+
+        public decimal GetProductPrice(int productNumber)
+        {
+            return 1.00m;
+        }
     }
 }
