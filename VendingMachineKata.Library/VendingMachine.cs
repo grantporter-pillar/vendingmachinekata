@@ -25,6 +25,11 @@ namespace VendingMachineKata.Library
             AmountInserted += 1.00m;
         }
 
+        public decimal GetCoinValue(double mass, double diameter)
+        {
+            return 0m;
+        }
+
         public void ReturnInsertedCoins()
         {
             AmountInserted = 0m;

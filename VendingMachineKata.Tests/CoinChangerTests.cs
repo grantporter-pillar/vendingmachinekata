@@ -30,5 +30,12 @@ namespace VendingMachineKata.Tests
 
             Assert.IsTrue(vm.AmountInserted > 0m);
         }
+
+        [TestMethod]
+        public void WhenACoinIsInserted_AValueIsDetermined()
+        {
+            var vm = new VendingMachine();
+            Assert.IsInstanceOfType(vm.GetCoinValue(2.500, 19.05), typeof(decimal)); // USA Penny;
+        }
     }
 }
