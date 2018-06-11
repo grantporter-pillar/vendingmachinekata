@@ -19,5 +19,10 @@ namespace VendingMachineKata.Library
 
             return @"INSERT COIN";
         }
+
+        public void ReturnInsertedCoins()
+        {
+            AmountInserted = 0m;
+        }
     }
 }
