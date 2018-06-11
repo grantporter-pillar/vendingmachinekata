@@ -18,9 +18,10 @@ namespace VendingMachineKata.Tests
         [TestMethod]
         public void WhenTheMachineHasMoneyInserted_TheDisplayReadsAnAmount()
         {
-            var vm = new VendingMachine();
-
-            vm.AmountInserted = 1.00m;
+            var vm = new VendingMachine
+            {
+                AmountInserted = 1.00m
+            };
 
             Assert.IsTrue(Decimal.TryParse(vm.GetDisplay(), out var amountInserted));
         }
@@ -28,12 +29,27 @@ namespace VendingMachineKata.Tests
         [TestMethod]
         public void WhenTheMachineHasMoneyInserted_TheDisplayReadsAmountInserted()
         {
-            var vm = new VendingMachine();
-
-            vm.AmountInserted = 1.00m;
+            var vm = new VendingMachine
+            {
+                AmountInserted = 1.00m
+            };
 
             Assert.IsTrue(Decimal.TryParse(vm.GetDisplay(), out var amountInserted));
             Assert.AreEqual(vm.AmountInserted, amountInserted);
+        }
+
+        [TestMethod]
+        public void WhenAProductIsChosenAndNotEnoughMoneyHasBeenInserted_TheDisplayReadsTheProductPrice()
+        {
+            var vm = new VendingMachine()
+            {
+                Products = new[] { 0.50m },
+                AmountInserted = 0.25m,
+            };
+
+            vm.PurchaseProduct(0);
+
+            Assert.AreEqual(vm.GetDisplay(), @"PRICE $0.50");
         }
     }
 }

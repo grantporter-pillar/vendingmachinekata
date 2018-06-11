@@ -13,9 +13,18 @@ namespace VendingMachineKata.Library
         public List<CoinSpecification> AcceptedCoins { get; set; }
 
         public decimal[] Products { get; set; }
+
+        public string TemporaryDisplay { get; set; }
         
         public string GetDisplay()
         {
+            if (!string.IsNullOrEmpty(TemporaryDisplay))
+            {
+                var display = TemporaryDisplay;
+                TemporaryDisplay = string.Empty;
+                return display;
+            }
+
             if (AmountInserted > 0m)
             {
                 return AmountInserted.ToString();
@@ -61,11 +70,17 @@ namespace VendingMachineKata.Library
         {
             var productPrice = GetProductPrice(productNumber);
 
-            if (productPrice > 0m && productPrice <= AmountInserted)
+            if (productPrice <= 0m)
+            {
+                return false;
+            }
+
+            if (productPrice <= AmountInserted)
             {
                 return true;
             }
-
+            
+            TemporaryDisplay = $@"PRICE {productPrice:C}";
             return false;
         }
     }
