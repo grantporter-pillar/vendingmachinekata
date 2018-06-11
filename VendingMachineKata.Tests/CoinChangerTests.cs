@@ -39,10 +39,24 @@ namespace VendingMachineKata.Tests
         }
 
         [TestMethod]
+        public void WhenAnUnacceptableCoinIsInserted_ValueIsZero()
+        {
+            var vm = new VendingMachine();
+            Assert.AreEqual(vm.GetCoinValue(2.500, 19.05), 0m); // USA Penny;
+        }
+
+        [TestMethod]
         public void WhenAnAcceptableCoinIsInserted_PositiveValueIsDetermined()
         {
             var vm = new VendingMachine();
             Assert.IsTrue(vm.GetCoinValue(5.000, 21.21) > 0m); // USA Nickel;
+        }
+
+        [TestMethod]
+        public void WhenAnAcceptableCoinIsInserted_CorrectValueIsDetermined()
+        {
+            var vm = new VendingMachine();
+            Assert.AreEqual(vm.GetCoinValue(5.000, 21.21), 0.05m); // USA Nickel;
         }
     }
 }

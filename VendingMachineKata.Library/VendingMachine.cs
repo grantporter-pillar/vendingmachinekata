@@ -29,7 +29,7 @@ namespace VendingMachineKata.Library
         {
             if (massGrams == 5.000 && diameterMillimeters == 21.21) // USA Nickel
             {
-                return 0.01m;
+                return 0.05m;
             }
 
             return 0m;
