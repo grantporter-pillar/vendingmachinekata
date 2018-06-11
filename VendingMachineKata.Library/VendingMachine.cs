@@ -29,19 +29,12 @@ namespace VendingMachineKata.Library
 
         public decimal GetCoinValue(double massGrams, double diameterMillimeters)
         {
-            if (massGrams == 5.000 && diameterMillimeters == 21.21) // USA Nickel
+            foreach (var coinSpec in AcceptedCoins)
             {
-                return 0.05m;
-            }
-
-            if (massGrams == 2.268 && diameterMillimeters == 17.91) // USA Dime
-            {
-                return 0.10m;
-            }
-
-            if (massGrams == 5.670 && diameterMillimeters == 24.26) // USA Quarter
-            {
-                return 0.25m;
+                if (coinSpec.MassGrams == massGrams && coinSpec.DiameterMillimeters == diameterMillimeters)
+                {
+                    return coinSpec.Value;
+                }
             }
 
             return 0m;
