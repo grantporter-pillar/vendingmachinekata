@@ -18,5 +18,17 @@ namespace VendingMachineKata.Tests
 
             Assert.AreEqual(vm.AmountInserted, 0m);
         }
+
+        [TestMethod]
+        public void WhenACoinIsInserted_AmountInsertedIncreases()
+        {
+            var vm = new VendingMachine();
+
+            vm.AmountInserted = 0m;
+
+            vm.AcceptCoin(2.500, 19.05); // USA Penny
+
+            Assert.IsTrue(vm.AmountInserted > 0m);
+        }
     }
 }
