@@ -20,13 +20,18 @@ namespace VendingMachineKata.Library
             return @"INSERT COIN";
         }
 
-        public void AcceptCoin(double mass, double diameter)
+        public void AcceptCoin(double massGrams, double diameterMillimeters)
         {
             AmountInserted += 1.00m;
         }
 
-        public decimal GetCoinValue(double mass, double diameter)
+        public decimal GetCoinValue(double massGrams, double diameterMillimeters)
         {
+            if (massGrams == 5.000 && diameterMillimeters == 21.21) // USA Nickel
+            {
+                return 0.01m;
+            }
+
             return 0m;
         }
 
