@@ -10,7 +10,7 @@ namespace VendingMachineKata.Library
     {
         public decimal AmountInserted { get; set; }
 
-        public List<CoinSpecification> AcceptedCoins { get; set; }
+        public Dictionary<CoinSpecification, int> CoinTubes { get; set; }
 
         public decimal[] Prices { get; set; }
 
@@ -35,22 +35,33 @@ namespace VendingMachineKata.Library
             return @"INSERT COIN";
         }
 
-        public void AcceptCoin(double massGrams, double diameterMillimeters)
+        public bool AcceptCoin(double massGrams, double diameterMillimeters)
         {
-            AmountInserted += GetCoinValue(massGrams, diameterMillimeters);
+            var coinType = IdentifyCoin(massGrams, diameterMillimeters);
+
+            if (coinType == null)
+            {
+                return false; // Coin is rejected to coin return
+            }
+
+            CoinTubes[coinType]++; // Add coin to the appropriate coin tube
+
+            AmountInserted += coinType.Value;
+
+            return true;
         }
 
-        public decimal GetCoinValue(double massGrams, double diameterMillimeters)
+        public CoinSpecification IdentifyCoin(double massGrams, double diameterMillimeters)
         {
-            foreach (var coinSpec in AcceptedCoins)
+            foreach (var coinSpec in CoinTubes.Select(i => i.Key).Distinct())
             {
                 if (coinSpec.MassGrams == massGrams && coinSpec.DiameterMillimeters == diameterMillimeters)
                 {
-                    return coinSpec.Value;
+                    return coinSpec;
                 }
             }
 
-            return 0m;
+            return null;
         }
 
         public void ReturnInsertedCoins()

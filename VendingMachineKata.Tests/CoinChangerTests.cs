@@ -8,18 +8,12 @@ namespace VendingMachineKata.Tests
     [TestClass]
     public class CoinChangerTests
     {
-        static List<CoinSpecification> AcceptedCoins { get; set; }
-
-        [ClassInitialize]
-        public static void Setup(TestContext context)
-        {
-            AcceptedCoins = new List<CoinSpecification>()
-            {
-                new CoinSpecification(5.000, 21.21,  0.05m), // USA Nickel
-                new CoinSpecification(2.268, 17.91,  0.10m), // USA Dime
-                new CoinSpecification(5.670, 24.26,  0.25m), // USA Quarter
-            };
-        }
+        // In the real vending machine implementation, these are stored in a configuration.  
+        // For the unit test, they are static variables
+        static readonly CoinSpecification UsaPenny =   new CoinSpecification(2.500, 19.05, 0.01m);
+        static readonly CoinSpecification UsaNickel =  new CoinSpecification(5.000, 21.21, 0.05m);
+        static readonly CoinSpecification UsaDime =    new CoinSpecification(2.268, 17.91, 0.10m);
+        static readonly CoinSpecification UsaQuarter = new CoinSpecification(5.670, 24.26, 0.25m);
 
         [TestMethod]
         public void WhenCustomerWantsMoneyInsertedReturned_AmountInsertedRevertsToZero()
@@ -35,63 +29,82 @@ namespace VendingMachineKata.Tests
         }
 
         [TestMethod]
+        public void WhenAnUnacceptableCoinIsInserted_CoinIsNotIdentified()
+        {
+            var vm = new VendingMachine()
+            {
+                CoinTubes = new Dictionary<CoinSpecification, int>
+                {
+                    { UsaNickel, 0 },
+                },
+            };
+
+            Assert.IsNull(vm.IdentifyCoin(UsaPenny.MassGrams, UsaPenny.DiameterMillimeters));
+        }
+
+        [TestMethod]
+        public void WhenAnAcceptableCoinIsInserted_CoinIsIdentified()
+        {
+            var vm = new VendingMachine()
+            {
+                CoinTubes = new Dictionary<CoinSpecification, int>
+                {
+                    { UsaNickel, 0 },
+                },
+            };
+
+            Assert.IsNotNull(vm.IdentifyCoin(UsaNickel.MassGrams, UsaNickel.DiameterMillimeters));
+        }
+
+        [TestMethod]
+        public void WhenAnAcceptableCoinIsInserted_CoinIsCorrectlyIdentified()
+        {
+            var vm = new VendingMachine()
+            {
+                CoinTubes = new Dictionary<CoinSpecification, int>
+                {
+                    { UsaNickel, 0 },
+                    { UsaDime, 0 },
+                    { UsaQuarter, 0 },
+                },
+            };
+
+            Assert.AreEqual(vm.IdentifyCoin(UsaNickel.MassGrams, UsaNickel.DiameterMillimeters), UsaNickel);
+            Assert.AreEqual(vm.IdentifyCoin(UsaDime.MassGrams, UsaDime.DiameterMillimeters), UsaDime);
+            Assert.AreEqual(vm.IdentifyCoin(UsaQuarter.MassGrams, UsaQuarter.DiameterMillimeters), UsaQuarter);
+        }
+
+        [TestMethod]
         public void WhenAnAcceptableCoinIsInserted_AmountInsertedIncreases()
         {
             var vm = new VendingMachine()
             {
                 AmountInserted = 0m,
-                AcceptedCoins = AcceptedCoins,
+                CoinTubes = new Dictionary<CoinSpecification, int>
+                {
+                    { UsaNickel, 0 },
+                },
             };
 
-            vm.AcceptCoin(5.000, 21.21); // USA Nickel
+            vm.AcceptCoin(UsaNickel.MassGrams, UsaNickel.DiameterMillimeters);
 
             Assert.IsTrue(vm.AmountInserted > 0m);
         }
 
         [TestMethod]
-        public void WhenACoinIsInserted_AValueIsDetermined()
+        public void WhenAnAcceptableCoinIsInserted_TheCoinInventoryIncreases()
         {
             var vm = new VendingMachine()
             {
-                AcceptedCoins = AcceptedCoins,
+                CoinTubes = new Dictionary<CoinSpecification, int>
+                {
+                    { UsaNickel, 0 },
+                },
             };
 
-            Assert.IsInstanceOfType(vm.GetCoinValue(2.500, 19.05), typeof(decimal)); // USA Penny
-        }
+            vm.AcceptCoin(UsaNickel.MassGrams, UsaNickel.DiameterMillimeters);
 
-        [TestMethod]
-        public void WhenAnUnacceptableCoinIsInserted_ValueIsZero()
-        {
-            var vm = new VendingMachine()
-            {
-                AcceptedCoins = AcceptedCoins,
-            };
-
-            Assert.AreEqual(vm.GetCoinValue(2.500, 19.05), 0m); // USA Penny
-        }
-
-        [TestMethod]
-        public void WhenAnAcceptableCoinIsInserted_PositiveValueIsDetermined()
-        {
-            var vm = new VendingMachine()
-            {
-                AcceptedCoins = AcceptedCoins,
-            };
-
-            Assert.IsTrue(vm.GetCoinValue(5.000, 21.21) > 0m); // USA Nickel
-        }
-
-        [TestMethod]
-        public void WhenAnAcceptableCoinIsInserted_CorrectValueIsDetermined()
-        {
-            var vm = new VendingMachine()
-            {
-                AcceptedCoins = AcceptedCoins,
-            };
-
-            Assert.AreEqual(vm.GetCoinValue(5.000, 21.21), 0.05m); // USA Nickel
-            Assert.AreEqual(vm.GetCoinValue(2.268, 17.91), 0.10m); // USA Dime
-            Assert.AreEqual(vm.GetCoinValue(5.670, 24.26), 0.25m); // USA Quarter
+            Assert.IsTrue(vm.CoinTubes[UsaNickel] > 0);
         }
     }
 }
