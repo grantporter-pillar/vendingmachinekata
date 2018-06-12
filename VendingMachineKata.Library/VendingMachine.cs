@@ -10,7 +10,7 @@ namespace VendingMachineKata.Library
     {
         public decimal AmountInserted { get; set; }
 
-        public Dictionary<CoinSpecification, int> CoinTubes { get; set; }
+        public List<CoinTube> CoinTubes { get; set; }
 
         public decimal[] Prices { get; set; }
 
@@ -44,16 +44,33 @@ namespace VendingMachineKata.Library
                 return false; // Coin is rejected to coin return
             }
 
-            CoinTubes[coinType]++; // Add coin to the appropriate coin tube
+            AddCoinToAvailableCoinTube(coinType);
 
             AmountInserted += coinType.Value;
 
             return true;
         }
 
+        public void AddCoinToAvailableCoinTube(CoinSpecification coinType)
+        {
+            for (var i = 0; i < CoinTubes.Count(); i++)
+            {
+                var coinTube = CoinTubes[i];
+
+                if (coinTube.Spec == coinType && coinTube.CountInTube < coinTube.Capacity)
+                {
+                    // Direct inserted coin to the available coin tube
+                    coinTube.CountInTube++;
+                    return;
+                }
+            }
+
+            // Direct inserted coin to cash box
+        }
+        
         public CoinSpecification IdentifyCoin(double massGrams, double diameterMillimeters)
         {
-            foreach (var coinSpec in CoinTubes.Select(i => i.Key).Distinct())
+            foreach (var coinSpec in CoinTubes.Select(i => i.Spec).Distinct())
             {
                 if (coinSpec.MassGrams == massGrams && coinSpec.DiameterMillimeters == diameterMillimeters)
                 {
@@ -62,6 +79,12 @@ namespace VendingMachineKata.Library
             }
 
             return null;
+        }
+
+        public int GetCoinInventory(CoinSpecification coinType)
+        {
+            return CoinTubes.Where(i => i.Spec == coinType)
+                .Sum(i => i.CountInTube);
         }
 
         public void ReturnInsertedCoins()

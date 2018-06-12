@@ -33,9 +33,9 @@ namespace VendingMachineKata.Tests
         {
             var vm = new VendingMachine()
             {
-                CoinTubes = new Dictionary<CoinSpecification, int>
+                CoinTubes = new List<CoinTube>
                 {
-                    { UsaNickel, 0 },
+                    new CoinTube(UsaNickel, 10),
                 },
             };
 
@@ -47,9 +47,9 @@ namespace VendingMachineKata.Tests
         {
             var vm = new VendingMachine()
             {
-                CoinTubes = new Dictionary<CoinSpecification, int>
+                CoinTubes = new List<CoinTube>
                 {
-                    { UsaNickel, 0 },
+                    new CoinTube(UsaNickel, 10),
                 },
             };
 
@@ -61,11 +61,11 @@ namespace VendingMachineKata.Tests
         {
             var vm = new VendingMachine()
             {
-                CoinTubes = new Dictionary<CoinSpecification, int>
+                CoinTubes = new List<CoinTube>
                 {
-                    { UsaNickel, 0 },
-                    { UsaDime, 0 },
-                    { UsaQuarter, 0 },
+                    new CoinTube(UsaNickel, 10),
+                    new CoinTube(UsaDime, 10),
+                    new CoinTube(UsaQuarter, 10),
                 },
             };
 
@@ -80,9 +80,9 @@ namespace VendingMachineKata.Tests
             var vm = new VendingMachine()
             {
                 AmountInserted = 0m,
-                CoinTubes = new Dictionary<CoinSpecification, int>
+                CoinTubes = new List<CoinTube>
                 {
-                    { UsaNickel, 0 },
+                    new CoinTube(UsaNickel, 10),
                 },
             };
 
@@ -96,15 +96,34 @@ namespace VendingMachineKata.Tests
         {
             var vm = new VendingMachine()
             {
-                CoinTubes = new Dictionary<CoinSpecification, int>
+                CoinTubes = new List<CoinTube>
                 {
-                    { UsaNickel, 0 },
+                    new CoinTube(UsaNickel, 10),
                 },
             };
 
             vm.AcceptCoin(UsaNickel.MassGrams, UsaNickel.DiameterMillimeters);
 
-            Assert.IsTrue(vm.CoinTubes[UsaNickel] > 0);
+            Assert.IsTrue(vm.GetCoinInventory(UsaNickel) > 0);
+        }
+
+        [TestMethod]
+        public void WhenAnAcceptableCoinIsInsertedAndAllCoinTubesAreFull_TheCoinInventoryStaysTheSame()
+        {
+            var vm = new VendingMachine()
+            {
+                CoinTubes = new List<CoinTube>
+                {
+                    new CoinTube(UsaNickel, 10, 10),
+                    new CoinTube(UsaNickel, 10, 10),
+                },
+            };
+
+            Assert.IsTrue(vm.GetCoinInventory(UsaNickel) == 20);
+
+            vm.AcceptCoin(UsaNickel.MassGrams, UsaNickel.DiameterMillimeters);
+
+            Assert.IsTrue(vm.GetCoinInventory(UsaNickel) == 20);
         }
     }
 }
