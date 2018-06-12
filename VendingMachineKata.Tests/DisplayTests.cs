@@ -43,8 +43,10 @@ namespace VendingMachineKata.Tests
         {
             var vm = new VendingMachine()
             {
-                Prices = new[] { 0.50m },
-                Inventory = new[] { 1 },
+                DispenserChannels = new []
+                {
+                    new DispenserChannel { Price = 0.50m, Inventory = 1 }
+                },
                 AmountInserted = 0.25m,
             };
 
@@ -58,8 +60,10 @@ namespace VendingMachineKata.Tests
         {
             var vm = new VendingMachine()
             {
-                Prices = new[] { 0.50m },
-                Inventory = new[] { 1 },
+                DispenserChannels = new[]
+                {
+                    new DispenserChannel { Price = 0.50m, Inventory = 1 }
+                },
                 AmountInserted = 0.50m,
             };
 
@@ -73,7 +77,10 @@ namespace VendingMachineKata.Tests
         {
             var vm = new VendingMachine()
             {
-                Inventory = new[] { 0 },
+                DispenserChannels = new[]
+                {
+                    new DispenserChannel { Price = 1.00m, Inventory = 0 }
+                },
             };
 
             vm.PurchaseProduct(0);

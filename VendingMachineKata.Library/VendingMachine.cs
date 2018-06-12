@@ -12,9 +12,7 @@ namespace VendingMachineKata.Library
 
         public List<CoinTube> CoinTubes { get; set; }
 
-        public decimal[] Prices { get; set; }
-
-        public int[] Inventory { get; set; }
+        public DispenserChannel [] DispenserChannels { get; set; }
 
         public string TemporaryDisplay { get; set; }
         
@@ -94,22 +92,12 @@ namespace VendingMachineKata.Library
 
         public decimal GetProductPrice(int productNumber)
         {
-            if (Prices != null && Prices.Count() > productNumber)
-            {
-                return Prices[productNumber];
-            }
-
-            return 0m;
+            return DispenserChannels[productNumber].Price;
         }
 
         public int GetInventory(int productNumber)
         {
-            if (Inventory != null && Inventory.Count() > productNumber)
-            {
-                return Inventory[productNumber];
-            }
-
-            return 0;
+            return DispenserChannels[productNumber].Inventory;
         }
 
         public bool PurchaseProduct(int productNumber)
