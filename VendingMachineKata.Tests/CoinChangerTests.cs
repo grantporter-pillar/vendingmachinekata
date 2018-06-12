@@ -10,9 +10,9 @@ namespace VendingMachineKata.Tests
     {
         // In the real vending machine implementation, these are stored in a configuration.  
         // For the unit test, they are static variables
-        static readonly CoinSpecification UsaPenny =   new CoinSpecification(2.500, 19.05, 0.01m);
-        static readonly CoinSpecification UsaNickel =  new CoinSpecification(5.000, 21.21, 0.05m);
-        static readonly CoinSpecification UsaDime =    new CoinSpecification(2.268, 17.91, 0.10m);
+        static readonly CoinSpecification UsaPenny = new CoinSpecification(2.500, 19.05, 0.01m);
+        static readonly CoinSpecification UsaNickel = new CoinSpecification(5.000, 21.21, 0.05m);
+        static readonly CoinSpecification UsaDime = new CoinSpecification(2.268, 17.91, 0.10m);
         static readonly CoinSpecification UsaQuarter = new CoinSpecification(5.670, 24.26, 0.25m);
 
         [TestMethod]
@@ -124,6 +124,34 @@ namespace VendingMachineKata.Tests
             vm.AcceptCoin(UsaNickel.MassGrams, UsaNickel.DiameterMillimeters);
 
             Assert.IsTrue(vm.GetCoinInventory(UsaNickel) == 20);
+        }
+
+        [TestMethod]
+        public void WhenCoinsNeedDispensedAndCoinInventoryAllows_DetermineThatCoinsCanBeDispensed()
+        {
+            var vm = new VendingMachine()
+            {
+                CoinTubes = new List<CoinTube>
+                {
+                    new CoinTube(UsaNickel, 10, 10),
+                },
+            };
+
+            Assert.IsTrue(vm.CanDispenseCoins(0.10m));
+        }
+
+        [TestMethod]
+        public void WhenCoinsNeedDispensedAndCoinInventoryDoesNotAllow_DetermineThatCoinsCanNotBeDispensed()
+        {
+            var vm = new VendingMachine()
+            {
+                CoinTubes = new List<CoinTube>
+                {
+                    new CoinTube(UsaNickel, 10, 1),
+                },
+            };
+
+            Assert.IsFalse(vm.CanDispenseCoins(0.10m));
         }
     }
 }

@@ -90,6 +90,25 @@ namespace VendingMachineKata.Library
             AmountInserted = 0m;
         }
 
+        public bool CanDispenseCoins(decimal amount)
+        {
+            foreach(var coinTube in CoinTubes
+                .Where(i => i.CountInTube > 0 && i.Spec.Value <= amount)
+                .OrderByDescending(i => i.Spec.Value)
+                .ThenByDescending(i => i.CountInTube))
+            {
+                var coinsInTube = coinTube.CountInTube;
+
+                while (coinsInTube > 0 && amount / coinTube.Spec.Value > 0)
+                {
+                    amount -= coinTube.Spec.Value;
+                    coinsInTube--;
+                }
+            }
+
+            return amount == 0m;
+        }
+
         public decimal GetProductPrice(int productNumber)
         {
             return DispenserChannels[productNumber].Price;
