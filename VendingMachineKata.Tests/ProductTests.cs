@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using VendingMachineKata.Library;
 
@@ -26,12 +27,20 @@ namespace VendingMachineKata.Tests
         {
             var vm = new VendingMachine()
             {
+                CoinTubes = new List<CoinTube>
+                {
+                    new CoinTube(TestDefinitions.UsaQuarter, 10),
+                },
                 DispenserChannels = new[]
                 {
                     new DispenserChannel { Price = 1.00m, Inventory = 1 }
                 },
-                AmountInserted = 1.00m,
             };
+
+            vm.AcceptCoin(TestDefinitions.UsaQuarter.MassGrams, TestDefinitions.UsaQuarter.DiameterMillimeters);
+            vm.AcceptCoin(TestDefinitions.UsaQuarter.MassGrams, TestDefinitions.UsaQuarter.DiameterMillimeters);
+            vm.AcceptCoin(TestDefinitions.UsaQuarter.MassGrams, TestDefinitions.UsaQuarter.DiameterMillimeters);
+            vm.AcceptCoin(TestDefinitions.UsaQuarter.MassGrams, TestDefinitions.UsaQuarter.DiameterMillimeters);
 
             Assert.IsTrue(vm.PurchaseProduct(0));
         }
@@ -41,12 +50,18 @@ namespace VendingMachineKata.Tests
         {
             var vm = new VendingMachine()
             {
+                CoinTubes = new List<CoinTube>
+                {
+                    new CoinTube(TestDefinitions.UsaQuarter, 10),
+                },
                 DispenserChannels = new[]
                 {
                     new DispenserChannel { Price = 1.00m, Inventory = 1 }
                 },
-                AmountInserted = 0.50m,
             };
+
+            vm.AcceptCoin(TestDefinitions.UsaQuarter.MassGrams, TestDefinitions.UsaQuarter.DiameterMillimeters);
+            vm.AcceptCoin(TestDefinitions.UsaQuarter.MassGrams, TestDefinitions.UsaQuarter.DiameterMillimeters);
 
             Assert.IsFalse(vm.PurchaseProduct(0));
         }
@@ -56,12 +71,20 @@ namespace VendingMachineKata.Tests
         {
             var vm = new VendingMachine()
             {
+                CoinTubes = new List<CoinTube>
+                {
+                    new CoinTube(TestDefinitions.UsaQuarter, 10),
+                },
                 DispenserChannels = new[]
                 {
                     new DispenserChannel { Price = 1.00m, Inventory = 1 }
                 },
-                AmountInserted = 2.00m,
             };
+
+            for (int i = 0; i < 8; i++) // $2.00
+            {
+                vm.AcceptCoin(TestDefinitions.UsaQuarter.MassGrams, TestDefinitions.UsaQuarter.DiameterMillimeters);
+            }
 
             var originalAmountInserted = vm.AmountInserted;
 

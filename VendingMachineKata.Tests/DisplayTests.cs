@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using VendingMachineKata.Library;
+using VendingMachineKata.Tests;
 
 namespace VendingMachineKata.Tests
 {
@@ -18,10 +20,15 @@ namespace VendingMachineKata.Tests
         [TestMethod]
         public void WhenTheMachineHasMoneyInserted_TheDisplayReadsAnAmount()
         {
-            var vm = new VendingMachine
+            var vm = new VendingMachine()
             {
-                AmountInserted = 1.00m
+                CoinTubes = new List<CoinTube>
+                {
+                    new CoinTube(TestDefinitions.UsaNickel, 10),
+                },
             };
+
+            vm.AcceptCoin(TestDefinitions.UsaNickel.MassGrams, TestDefinitions.UsaNickel.DiameterMillimeters);
 
             Assert.IsTrue(Decimal.TryParse(vm.GetDisplay(), out var amountInserted));
         }
@@ -29,13 +36,17 @@ namespace VendingMachineKata.Tests
         [TestMethod]
         public void WhenTheMachineHasMoneyInserted_TheDisplayReadsAmountInserted()
         {
-            var vm = new VendingMachine
+            var vm = new VendingMachine()
             {
-                AmountInserted = 1.00m
+                CoinTubes = new List<CoinTube>
+                {
+                    new CoinTube(TestDefinitions.UsaNickel, 10),
+                },
             };
 
-            Assert.IsTrue(Decimal.TryParse(vm.GetDisplay(), out var amountInserted));
-            Assert.AreEqual(vm.AmountInserted, amountInserted);
+            vm.AcceptCoin(TestDefinitions.UsaNickel.MassGrams, TestDefinitions.UsaNickel.DiameterMillimeters);
+
+            Assert.AreEqual(vm.GetDisplay(), 0.05m.ToString());
         }
 
         [TestMethod]
@@ -43,12 +54,17 @@ namespace VendingMachineKata.Tests
         {
             var vm = new VendingMachine()
             {
+                CoinTubes = new List<CoinTube>
+                {
+                    new CoinTube(TestDefinitions.UsaNickel, 10),
+                },
                 DispenserChannels = new []
                 {
                     new DispenserChannel { Price = 0.50m, Inventory = 1 }
                 },
-                AmountInserted = 0.25m,
             };
+
+            vm.AcceptCoin(TestDefinitions.UsaNickel.MassGrams, TestDefinitions.UsaNickel.DiameterMillimeters);
 
             vm.PurchaseProduct(0);
 
@@ -60,12 +76,18 @@ namespace VendingMachineKata.Tests
         {
             var vm = new VendingMachine()
             {
+                CoinTubes = new List<CoinTube>
+                {
+                    new CoinTube(TestDefinitions.UsaQuarter, 10),
+                },
                 DispenserChannels = new[]
                 {
                     new DispenserChannel { Price = 0.50m, Inventory = 1 }
                 },
-                AmountInserted = 0.50m,
             };
+
+            vm.AcceptCoin(TestDefinitions.UsaQuarter.MassGrams, TestDefinitions.UsaQuarter.DiameterMillimeters);
+            vm.AcceptCoin(TestDefinitions.UsaQuarter.MassGrams, TestDefinitions.UsaQuarter.DiameterMillimeters);
 
             vm.PurchaseProduct(0);
 

@@ -8,14 +8,14 @@ namespace VendingMachineKata.Library
 {
     public class VendingMachine
     {
-        public decimal AmountInserted { get; set; }
+        public decimal AmountInserted { get; private set; }
 
         public List<CoinTube> CoinTubes { get; set; }
 
-        public DispenserChannel [] DispenserChannels { get; set; }
+        public DispenserChannel[] DispenserChannels { get; set; }
 
         public string TemporaryDisplay { get; set; }
-        
+
         public string GetDisplay()
         {
             if (!string.IsNullOrEmpty(TemporaryDisplay))
@@ -65,7 +65,7 @@ namespace VendingMachineKata.Library
 
             // Direct inserted coin to cash box
         }
-        
+
         public CoinSpecification IdentifyCoin(double massGrams, double diameterMillimeters)
         {
             foreach (var coinSpec in CoinTubes.Select(i => i.Spec).Distinct())
@@ -85,24 +85,35 @@ namespace VendingMachineKata.Library
                 .Sum(i => i.CountInTube);
         }
 
-        public void ReturnInsertedCoins()
+        public void DispenseCoins(decimal amount)
         {
-            AmountInserted = 0m;
-        }
-
-        public bool CanDispenseCoins(decimal amount)
-        {
-            foreach(var coinTube in CoinTubes
+            foreach (var coinTube in CoinTubes
                 .Where(i => i.CountInTube > 0 && i.Spec.Value <= amount)
                 .OrderByDescending(i => i.Spec.Value)
                 .ThenByDescending(i => i.CountInTube))
             {
-                var coinsInTube = coinTube.CountInTube;
-
-                while (coinsInTube > 0 && amount / coinTube.Spec.Value > 0)
+                while (coinTube.CountInTube > 0 && amount / coinTube.Spec.Value > 0)
                 {
                     amount -= coinTube.Spec.Value;
-                    coinsInTube--;
+                    AmountInserted -= coinTube.Spec.Value;
+                    coinTube.CountInTube--;
+                }
+            }
+        }
+
+        public bool CanDispenseCoins(decimal amount)
+        {
+            foreach (var coinTube in CoinTubes
+                .Where(i => i.CountInTube > 0 && i.Spec.Value <= amount)
+                .OrderByDescending(i => i.Spec.Value)
+                .ThenByDescending(i => i.CountInTube))
+            {
+                var virtualCountInTube = coinTube.CountInTube;
+
+                while (virtualCountInTube > 0 && amount / coinTube.Spec.Value > 0)
+                {
+                    amount -= coinTube.Spec.Value;
+                    virtualCountInTube--;
                 }
             }
 
@@ -142,7 +153,7 @@ namespace VendingMachineKata.Library
                 TemporaryDisplay = @"THANK YOU";
                 return true;
             }
-            
+
             TemporaryDisplay = $@"PRICE {productPrice:C}";
             return false;
         }

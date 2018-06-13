@@ -12,11 +12,11 @@ namespace VendingMachineKata.Library
         public int CountInTube { get; set; }
         public int Capacity { get; set; }
 
-        public CoinTube(CoinSpecification spec, int capacity, int countInTube = 0)
+        public CoinTube(CoinSpecification spec, int capacity)
         {
             Spec = spec;
             Capacity = capacity;
-            CountInTube = countInTube;
+            CountInTube = 0;
         }
     }
 }
