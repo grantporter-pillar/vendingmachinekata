@@ -67,6 +67,39 @@ namespace VendingMachineKata.VirtualMachine
         }
 
         #region Button Click Event Handlers
+        private void buttonBuyCola_Click(object sender, EventArgs e)
+        {
+            if (VM.PurchaseProduct(0))
+            {
+                textBoxProductOutput.Text = @"Cola" + Environment.NewLine + textBoxProductOutput.Text;
+            }
+
+            UpdateDisplay();
+            UpdateInventory();
+        }
+
+        private void buttonBuyChips_Click(object sender, EventArgs e)
+        {
+            if (VM.PurchaseProduct(1))
+            {
+                textBoxProductOutput.Text = @"Chips" + Environment.NewLine + textBoxProductOutput.Text;
+            }
+
+            UpdateDisplay();
+            UpdateInventory();
+        }
+
+        private void buttonBuyCandy_Click(object sender, EventArgs e)
+        {
+            if (VM.PurchaseProduct(2))
+            {
+                textBoxProductOutput.Text = @"Candy" + Environment.NewLine + textBoxProductOutput.Text;
+            }
+
+            UpdateDisplay();
+            UpdateInventory();
+        }
+
         private void buttonInsertPenny_Click(object sender, System.EventArgs e)
         {
             VM.AcceptCoin(TestDefinitions.UsaPenny.MassGrams, TestDefinitions.UsaPenny.DiameterMillimeters);
@@ -107,6 +140,11 @@ namespace VendingMachineKata.VirtualMachine
         private void buttonEmptyCoinReturn_Click(object sender, EventArgs e)
         {
             textBoxCoinReturn.Text = string.Empty;
+        }
+        
+        private void buttonEmptyProductOutput_Click(object sender, EventArgs e)
+        {
+            textBoxProductOutput.Text = string.Empty;
         }
         #endregion
     }
