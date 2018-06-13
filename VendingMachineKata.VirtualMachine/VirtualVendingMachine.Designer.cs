@@ -54,11 +54,11 @@
             // 
             this.labelDisplay.BackColor = System.Drawing.Color.Black;
             this.labelDisplay.Dock = System.Windows.Forms.DockStyle.Top;
-            this.labelDisplay.Font = new System.Drawing.Font("Consolas", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelDisplay.Font = new System.Drawing.Font("Consolas", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelDisplay.ForeColor = System.Drawing.Color.Red;
             this.labelDisplay.Location = new System.Drawing.Point(0, 0);
             this.labelDisplay.Name = "labelDisplay";
-            this.labelDisplay.Size = new System.Drawing.Size(420, 60);
+            this.labelDisplay.Size = new System.Drawing.Size(420, 44);
             this.labelDisplay.TabIndex = 3;
             this.labelDisplay.Text = "DISPLAY";
             // 
@@ -71,7 +71,7 @@
             // 
             this.buttonInsertPenny.BackColor = System.Drawing.Color.White;
             this.buttonInsertPenny.Image = ((System.Drawing.Image)(resources.GetObject("buttonInsertPenny.Image")));
-            this.buttonInsertPenny.Location = new System.Drawing.Point(223, 72);
+            this.buttonInsertPenny.Location = new System.Drawing.Point(225, 53);
             this.buttonInsertPenny.Margin = new System.Windows.Forms.Padding(0);
             this.buttonInsertPenny.Name = "buttonInsertPenny";
             this.buttonInsertPenny.Size = new System.Drawing.Size(85, 85);
@@ -83,7 +83,7 @@
             // 
             this.buttonInsertNickel.BackColor = System.Drawing.Color.White;
             this.buttonInsertNickel.Image = ((System.Drawing.Image)(resources.GetObject("buttonInsertNickel.Image")));
-            this.buttonInsertNickel.Location = new System.Drawing.Point(323, 72);
+            this.buttonInsertNickel.Location = new System.Drawing.Point(325, 53);
             this.buttonInsertNickel.Margin = new System.Windows.Forms.Padding(0);
             this.buttonInsertNickel.Name = "buttonInsertNickel";
             this.buttonInsertNickel.Size = new System.Drawing.Size(85, 85);
@@ -95,7 +95,7 @@
             // 
             this.buttonInsertDime.BackColor = System.Drawing.Color.White;
             this.buttonInsertDime.Image = ((System.Drawing.Image)(resources.GetObject("buttonInsertDime.Image")));
-            this.buttonInsertDime.Location = new System.Drawing.Point(223, 172);
+            this.buttonInsertDime.Location = new System.Drawing.Point(225, 153);
             this.buttonInsertDime.Margin = new System.Windows.Forms.Padding(0);
             this.buttonInsertDime.Name = "buttonInsertDime";
             this.buttonInsertDime.Size = new System.Drawing.Size(85, 85);
@@ -107,7 +107,7 @@
             // 
             this.buttonInsertQuarter.BackColor = System.Drawing.Color.White;
             this.buttonInsertQuarter.Image = ((System.Drawing.Image)(resources.GetObject("buttonInsertQuarter.Image")));
-            this.buttonInsertQuarter.Location = new System.Drawing.Point(323, 172);
+            this.buttonInsertQuarter.Location = new System.Drawing.Point(325, 153);
             this.buttonInsertQuarter.Margin = new System.Windows.Forms.Padding(0);
             this.buttonInsertQuarter.Name = "buttonInsertQuarter";
             this.buttonInsertQuarter.Size = new System.Drawing.Size(85, 85);
@@ -118,7 +118,7 @@
             // buttonCoinReturn
             // 
             this.buttonCoinReturn.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonCoinReturn.Location = new System.Drawing.Point(223, 270);
+            this.buttonCoinReturn.Location = new System.Drawing.Point(225, 251);
             this.buttonCoinReturn.Name = "buttonCoinReturn";
             this.buttonCoinReturn.Size = new System.Drawing.Size(185, 85);
             this.buttonCoinReturn.TabIndex = 8;
@@ -129,7 +129,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(220, 367);
+            this.label1.Location = new System.Drawing.Point(222, 348);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(63, 13);
             this.label1.TabIndex = 9;
@@ -137,7 +137,7 @@
             // 
             // textBoxCoinReturn
             // 
-            this.textBoxCoinReturn.Location = new System.Drawing.Point(223, 383);
+            this.textBoxCoinReturn.Location = new System.Drawing.Point(225, 364);
             this.textBoxCoinReturn.Multiline = true;
             this.textBoxCoinReturn.Name = "textBoxCoinReturn";
             this.textBoxCoinReturn.Size = new System.Drawing.Size(185, 96);
@@ -145,7 +145,7 @@
             // 
             // buttonEmptyCoinReturn
             // 
-            this.buttonEmptyCoinReturn.Location = new System.Drawing.Point(223, 487);
+            this.buttonEmptyCoinReturn.Location = new System.Drawing.Point(225, 468);
             this.buttonEmptyCoinReturn.Name = "buttonEmptyCoinReturn";
             this.buttonEmptyCoinReturn.Size = new System.Drawing.Size(185, 23);
             this.buttonEmptyCoinReturn.TabIndex = 11;
@@ -155,8 +155,7 @@
             // 
             // textBoxInventory
             // 
-            this.textBoxInventory.Enabled = false;
-            this.textBoxInventory.Location = new System.Drawing.Point(10, 88);
+            this.textBoxInventory.Location = new System.Drawing.Point(12, 69);
             this.textBoxInventory.Multiline = true;
             this.textBoxInventory.Name = "textBoxInventory";
             this.textBoxInventory.Size = new System.Drawing.Size(76, 267);
@@ -165,8 +164,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Enabled = false;
-            this.label2.Location = new System.Drawing.Point(7, 72);
+            this.label2.Location = new System.Drawing.Point(9, 53);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(51, 13);
             this.label2.TabIndex = 12;
@@ -176,7 +174,7 @@
             // 
             this.buttonBuyCola.BackColor = System.Drawing.Color.White;
             this.buttonBuyCola.Image = ((System.Drawing.Image)(resources.GetObject("buttonBuyCola.Image")));
-            this.buttonBuyCola.Location = new System.Drawing.Point(108, 172);
+            this.buttonBuyCola.Location = new System.Drawing.Point(110, 153);
             this.buttonBuyCola.Margin = new System.Windows.Forms.Padding(0);
             this.buttonBuyCola.Name = "buttonBuyCola";
             this.buttonBuyCola.Size = new System.Drawing.Size(85, 85);
@@ -188,7 +186,7 @@
             // 
             this.buttonBuyCandy.BackColor = System.Drawing.Color.White;
             this.buttonBuyCandy.Image = ((System.Drawing.Image)(resources.GetObject("buttonBuyCandy.Image")));
-            this.buttonBuyCandy.Location = new System.Drawing.Point(108, 270);
+            this.buttonBuyCandy.Location = new System.Drawing.Point(110, 251);
             this.buttonBuyCandy.Margin = new System.Windows.Forms.Padding(0);
             this.buttonBuyCandy.Name = "buttonBuyCandy";
             this.buttonBuyCandy.Size = new System.Drawing.Size(85, 85);
@@ -200,7 +198,7 @@
             // 
             this.buttonBuyChips.BackColor = System.Drawing.Color.White;
             this.buttonBuyChips.Image = ((System.Drawing.Image)(resources.GetObject("buttonBuyChips.Image")));
-            this.buttonBuyChips.Location = new System.Drawing.Point(108, 72);
+            this.buttonBuyChips.Location = new System.Drawing.Point(110, 53);
             this.buttonBuyChips.Margin = new System.Windows.Forms.Padding(0);
             this.buttonBuyChips.Name = "buttonBuyChips";
             this.buttonBuyChips.Size = new System.Drawing.Size(85, 85);
@@ -210,8 +208,7 @@
             // 
             // textBoxProductOutput
             // 
-            this.textBoxProductOutput.Enabled = false;
-            this.textBoxProductOutput.Location = new System.Drawing.Point(10, 383);
+            this.textBoxProductOutput.Location = new System.Drawing.Point(12, 364);
             this.textBoxProductOutput.Multiline = true;
             this.textBoxProductOutput.Name = "textBoxProductOutput";
             this.textBoxProductOutput.Size = new System.Drawing.Size(183, 96);
@@ -220,8 +217,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Enabled = false;
-            this.label3.Location = new System.Drawing.Point(7, 367);
+            this.label3.Location = new System.Drawing.Point(9, 348);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(79, 13);
             this.label3.TabIndex = 17;
@@ -229,7 +225,7 @@
             // 
             // buttonEmptyProductOutput
             // 
-            this.buttonEmptyProductOutput.Location = new System.Drawing.Point(10, 487);
+            this.buttonEmptyProductOutput.Location = new System.Drawing.Point(12, 468);
             this.buttonEmptyProductOutput.Name = "buttonEmptyProductOutput";
             this.buttonEmptyProductOutput.Size = new System.Drawing.Size(183, 23);
             this.buttonEmptyProductOutput.TabIndex = 19;
@@ -241,7 +237,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(420, 521);
+            this.ClientSize = new System.Drawing.Size(420, 503);
             this.Controls.Add(this.buttonEmptyProductOutput);
             this.Controls.Add(this.textBoxProductOutput);
             this.Controls.Add(this.label3);

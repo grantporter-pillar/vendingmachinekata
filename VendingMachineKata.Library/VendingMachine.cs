@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace VendingMachineKata.Library
@@ -41,6 +42,7 @@ namespace VendingMachineKata.Library
 
             if (coinType == null)
             {
+                OnCoinDispensed(null); // Unknown coin rejected
                 return false; // Coin is rejected to coin return
             }
 
@@ -94,11 +96,13 @@ namespace VendingMachineKata.Library
                 .OrderByDescending(i => i.Spec.Value)
                 .ThenByDescending(i => i.CountInTube))
             {
-                while (amount > 0m && coinTube.CountInTube > 0 && amount / coinTube.Spec.Value > 0)
+                while (amount > 0m && coinTube.CountInTube > 0
+                    && amount >= coinTube.Spec.Value)
                 {
                     amount -= coinTube.Spec.Value;
                     AmountInserted -= coinTube.Spec.Value;
                     coinTube.CountInTube--;
+                    OnCoinDispensed(new CoinDispensedEventArgs(coinTube.Spec));
                 }
             }
         }
@@ -153,7 +157,6 @@ namespace VendingMachineKata.Library
             if (productPrice <= AmountInserted)
             {
                 AmountInserted -= productPrice;
-                // Product is dispensed
                 DispenserChannels[productNumber].Inventory--;
                 DispenseCoins(AmountInserted);
 
@@ -199,6 +202,22 @@ namespace VendingMachineKata.Library
             }
 
             return false;
+        }
+
+        protected virtual void OnCoinDispensed(CoinDispensedEventArgs e)
+        {
+            CoinDispensed?.Invoke(this, e);
+        }
+        public event EventHandler CoinDispensed;
+    }
+
+    public class CoinDispensedEventArgs : EventArgs
+    {
+        public CoinSpecification CoinSpec { get; }
+
+        public CoinDispensedEventArgs(CoinSpecification coinSpec)
+        {
+            this.CoinSpec = coinSpec;
         }
     }
 }

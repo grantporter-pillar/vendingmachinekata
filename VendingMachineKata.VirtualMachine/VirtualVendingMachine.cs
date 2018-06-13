@@ -21,7 +21,7 @@ namespace VendingMachineKata.VirtualMachine
             {
                 CoinTubes = new List<CoinTube>
                 {
-                    new CoinTube(TestDefinitions.UsaNickel, 102) { CountInTube = 10 },
+                    new CoinTube(TestDefinitions.UsaNickel, 102) { CountInTube = 0 },
                     new CoinTube(TestDefinitions.UsaDime, 148) { CountInTube = 10 },
                     new CoinTube(TestDefinitions.UsaQuarter, 114) { CountInTube = 10 },
                 },
@@ -33,8 +33,25 @@ namespace VendingMachineKata.VirtualMachine
                 },
             };
 
+            VM.CoinDispensed += VM_CoinDispensed;
+
             UpdateDisplay();
             UpdateInventory();
+        }
+
+        private void VM_CoinDispensed(object sender, EventArgs e)
+        {
+            if (e == null)
+            {
+                textBoxCoinReturn.Text = @"[Invalid Coin]"
+                    + Environment.NewLine + textBoxCoinReturn.Text;
+                return;
+            }
+            if (e.GetType() == typeof(CoinDispensedEventArgs))
+            {
+                textBoxCoinReturn.Text = $"${((CoinDispensedEventArgs)e).CoinSpec.Value}"
+                    + Environment.NewLine + textBoxCoinReturn.Text;
+            }
         }
 
         private void UpdateDisplay()
@@ -132,7 +149,6 @@ namespace VendingMachineKata.VirtualMachine
         {
             var amountToReturn = VM.AmountInserted;
             VM.DispenseCoins(amountToReturn);
-            textBoxCoinReturn.Text = $"${amountToReturn} returned" + Environment.NewLine + textBoxCoinReturn.Text;
             UpdateDisplay();
             UpdateInventory();
         }
