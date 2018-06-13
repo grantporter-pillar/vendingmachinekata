@@ -11,7 +11,17 @@ namespace VendingMachineKata.Tests
         [TestMethod]
         public void WhenTheMachineIsReadyToAcceptMoney_TheDisplayReadsInsertCoin()
         {
-            var vm = new VendingMachine();
+            var vm = new VendingMachine()
+            {
+                CoinTubes = new List<CoinTube>
+                {
+                    new CoinTube(TestDefinitions.UsaQuarter, 10),
+                },
+                DispenserChannels = new[]
+                {
+                    new DispenserChannel { Price = 0.50m, Inventory = 1 }
+                },
+            };
 
             Assert.AreEqual(vm.GetDisplay(), @"INSERT COIN");
         }
@@ -107,6 +117,27 @@ namespace VendingMachineKata.Tests
             vm.PurchaseProduct(0);
 
             Assert.AreEqual(vm.GetDisplay(), @"SOLD OUT");
+        }
+
+        [TestMethod]
+        public void WhenAProductIsSoldForAPriceNotDivisibleByTheSmallestDenominationAccepted_TheDisplayReadsExactChangeOnly()
+        {
+            var vm = new VendingMachine()
+            {
+                CoinTubes = new List<CoinTube>
+                {
+                    new CoinTube(TestDefinitions.UsaNickel, 102),
+                    new CoinTube(TestDefinitions.UsaDime, 148),
+                    new CoinTube(TestDefinitions.UsaQuarter, 114),
+                },
+                DispenserChannels = new[]
+                {
+                    new DispenserChannel { Price = 0.73m, Inventory = 15 },
+                },
+            };                   
+
+            Assert.AreEqual(vm.GetDisplay(), @"EXACT CHANGE ONLY");
+            Assert.AreEqual(vm.GetDisplay(), @"EXACT CHANGE ONLY"); // Check again to make sure it's not temporary display
         }
     }
 }

@@ -30,6 +30,11 @@ namespace VendingMachineKata.Library
                 return AmountInserted.ToString();
             }
 
+            if (ExactChangeOnly())
+            {
+                return @"EXACT CHANGE ONLY";
+            }
+
             return @"INSERT COIN";
         }
 
@@ -159,6 +164,25 @@ namespace VendingMachineKata.Library
             }
 
             TemporaryDisplay = $@"PRICE {productPrice:C}";
+            return false;
+        }
+
+        private bool ExactChangeOnly()
+        {
+            var acceptedCoinValues = CoinTubes
+                .Select(i => i.Spec.Value)
+                .Distinct()
+                .OrderBy(i => i);
+
+            var smallestAcceptedCoinValue = acceptedCoinValues.Min();
+
+            // There is a product that is being sold for a multiple of a 
+            // smaller denomination than the smallest accepted denomination
+            if (DispenserChannels.Any(i => i.Price % smallestAcceptedCoinValue > 0))
+            {
+                return true;
+            }
+
             return false;
         }
     }
