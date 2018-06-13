@@ -169,18 +169,35 @@ namespace VendingMachineKata.Library
 
         private bool ExactChangeOnly()
         {
+            var availableProductPrices = DispenserChannels
+                .Where(i => i.Inventory > 0)
+                .Select(i => i.Price)
+                .Distinct();
+
             var acceptedCoinValues = CoinTubes
                 .Select(i => i.Spec.Value)
                 .Distinct()
                 .OrderBy(i => i);
 
             var smallestAcceptedCoinValue = acceptedCoinValues.Min();
+            var largestAcceptedCoinValue = acceptedCoinValues.Max();
 
             // There is a product that is being sold for a multiple of a 
             // smaller denomination than the smallest accepted denomination
-            if (DispenserChannels.Any(i => i.Price % smallestAcceptedCoinValue > 0))
+            if (availableProductPrices.Any(i => i % smallestAcceptedCoinValue > 0))
             {
                 return true;
+            }
+
+            foreach (var price in availableProductPrices)
+            {
+                // If the price is not divisible by the largest denomination accepted
+                // and the remainder if only the largest coins are used cannot be dispensed
+                if (price % largestAcceptedCoinValue > 0 
+                    && !CanDispenseCoins(price % largestAcceptedCoinValue))
+                {
+                    return true;
+                }
             }
 
             return false;

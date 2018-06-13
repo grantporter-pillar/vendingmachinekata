@@ -120,7 +120,7 @@ namespace VendingMachineKata.Tests
         }
 
         [TestMethod]
-        public void WhenAProductIsSoldForAPriceNotDivisibleByTheSmallestDenominationAccepted_TheDisplayReadsExactChangeOnly()
+        public void WhenAProductIsAvailableForAPriceNotDivisibleByTheSmallestDenominationAccepted_TheDisplayReadsExactChangeOnly()
         {
             var vm = new VendingMachine()
             {
@@ -135,6 +135,31 @@ namespace VendingMachineKata.Tests
                     new DispenserChannel { Price = 0.73m, Inventory = 15 },
                 },
             };                   
+
+            Assert.AreEqual(vm.GetDisplay(), @"EXACT CHANGE ONLY");
+            Assert.AreEqual(vm.GetDisplay(), @"EXACT CHANGE ONLY"); // Check again to make sure it's not temporary display
+        }
+
+        [TestMethod]
+        public void WhenAProductIsAvailableForAPriceThatChangeCannotBeMadeFor_TheDisplayReadsExactChangeOnly()
+        {
+            var vm = new VendingMachine()
+            {
+                CoinTubes = new List<CoinTube>
+                {
+                    new CoinTube(TestDefinitions.UsaNickel, 102),
+                    new CoinTube(TestDefinitions.UsaDime, 148),
+                    new CoinTube(TestDefinitions.UsaQuarter, 114),
+                },
+                DispenserChannels = new[]
+                {
+                    new DispenserChannel { Price = 1.00m, Inventory = 15 },
+                    new DispenserChannel { Price = 0.50m, Inventory = 15 },
+                    new DispenserChannel { Price = 0.65m, Inventory = 15 },
+                    // /|\ This one should not be able to have change made for it 
+                    // since there are no nickels in the machine
+                },
+            };
 
             Assert.AreEqual(vm.GetDisplay(), @"EXACT CHANGE ONLY");
             Assert.AreEqual(vm.GetDisplay(), @"EXACT CHANGE ONLY"); // Check again to make sure it's not temporary display
