@@ -150,6 +150,7 @@ namespace VendingMachineKata.Library
             if (productPrice <= AmountInserted)
             {
                 AmountInserted -= AmountInserted;
+                DispenserChannels[productNumber].Inventory--;
                 TemporaryDisplay = @"THANK YOU";
                 return true;
             }

@@ -43,6 +43,7 @@ namespace VendingMachineKata.Tests
             vm.AcceptCoin(TestDefinitions.UsaQuarter.MassGrams, TestDefinitions.UsaQuarter.DiameterMillimeters);
 
             Assert.IsTrue(vm.PurchaseProduct(0));
+            Assert.IsTrue(vm.DispenserChannels[0].Inventory < 1);
         }
 
         [TestMethod]
@@ -64,6 +65,7 @@ namespace VendingMachineKata.Tests
             vm.AcceptCoin(TestDefinitions.UsaQuarter.MassGrams, TestDefinitions.UsaQuarter.DiameterMillimeters);
 
             Assert.IsFalse(vm.PurchaseProduct(0));
+            Assert.IsTrue(vm.DispenserChannels[0].Inventory == 1);
         }
 
         [TestMethod]
