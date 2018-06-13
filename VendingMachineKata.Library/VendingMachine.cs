@@ -97,7 +97,7 @@ namespace VendingMachineKata.Library
                 .OrderByDescending(i => i.Spec.Value)
                 .ThenByDescending(i => i.CountInTube))
             {
-                while (coinTube.CountInTube > 0 && amount / coinTube.Spec.Value > 0)
+                while (amount > 0m && coinTube.CountInTube > 0 && amount / coinTube.Spec.Value > 0)
                 {
                     amount -= coinTube.Spec.Value;
                     AmountInserted -= coinTube.Spec.Value;
@@ -115,7 +115,8 @@ namespace VendingMachineKata.Library
             {
                 var virtualCountInTube = coinTube.CountInTube;
 
-                while (virtualCountInTube > 0 && amount / coinTube.Spec.Value > 0)
+                while (amount > 0m && virtualCountInTube > 0
+                    && amount >= coinTube.Spec.Value)
                 {
                     amount -= coinTube.Spec.Value;
                     virtualCountInTube--;
@@ -158,7 +159,7 @@ namespace VendingMachineKata.Library
                 // Product is dispensed
                 DispenserChannels[productNumber].Inventory--;
                 DispenseCoins(AmountInserted);
-            
+
                 TemporaryDisplay = @"THANK YOU";
                 return true;
             }
@@ -191,12 +192,12 @@ namespace VendingMachineKata.Library
 
             foreach (var price in availableProductPrices)
             {
-                // If the price is not divisible by the largest denomination accepted
-                // and the remainder if only the largest coins are used cannot be dispensed
-                if (price % largestAcceptedCoinValue > 0 
-                    && !CanDispenseCoins(price % largestAcceptedCoinValue))
+                foreach (var coinValue in acceptedCoinValues)
                 {
-                    return true;
+                    if (price % coinValue > 0 && !CanDispenseCoins(price % coinValue))
+                    {
+                        return true;
+                    }
                 }
             }
 

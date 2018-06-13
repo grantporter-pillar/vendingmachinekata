@@ -147,9 +147,9 @@ namespace VendingMachineKata.Tests
             {
                 CoinTubes = new List<CoinTube>
                 {
-                    new CoinTube(TestDefinitions.UsaNickel, 102),
-                    new CoinTube(TestDefinitions.UsaDime, 148),
-                    new CoinTube(TestDefinitions.UsaQuarter, 114),
+                    new CoinTube(TestDefinitions.UsaNickel, 102) { CountInTube = 0 },
+                    new CoinTube(TestDefinitions.UsaDime, 148) { CountInTube = 50 },
+                    new CoinTube(TestDefinitions.UsaQuarter, 114) { CountInTube = 50 },
                 },
                 DispenserChannels = new[]
                 {
