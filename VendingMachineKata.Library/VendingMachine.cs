@@ -149,8 +149,11 @@ namespace VendingMachineKata.Library
 
             if (productPrice <= AmountInserted)
             {
-                AmountInserted -= AmountInserted;
+                AmountInserted -= productPrice;
+                // Product is dispensed
                 DispenserChannels[productNumber].Inventory--;
+                DispenseCoins(AmountInserted);
+            
                 TemporaryDisplay = @"THANK YOU";
                 return true;
             }

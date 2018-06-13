@@ -94,5 +94,30 @@ namespace VendingMachineKata.Tests
 
             Assert.IsTrue(vm.AmountInserted < originalAmountInserted);
         }
+
+        [TestMethod]
+        public void WhenAProductIsDispensed_TheAmountInsertedIsSetToZeroAsChangeIsMade()
+        {
+            var vm = new VendingMachine()
+            {
+                CoinTubes = new List<CoinTube>
+                {
+                    new CoinTube(TestDefinitions.UsaQuarter, 10),
+                },
+                DispenserChannels = new[]
+                {
+                    new DispenserChannel { Price = 1.00m, Inventory = 1 }
+                },
+            };
+
+            for (int i = 0; i < 8; i++) // $2.00
+            {
+                vm.AcceptCoin(TestDefinitions.UsaQuarter.MassGrams, TestDefinitions.UsaQuarter.DiameterMillimeters);
+            }
+
+            vm.PurchaseProduct(0);
+
+            Assert.IsTrue(vm.AmountInserted == 0);
+        }
     }
 }

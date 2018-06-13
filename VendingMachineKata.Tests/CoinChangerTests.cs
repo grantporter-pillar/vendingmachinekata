@@ -180,7 +180,7 @@ namespace VendingMachineKata.Tests
             vm.AcceptCoin(TestDefinitions.UsaNickel.MassGrams, TestDefinitions.UsaNickel.DiameterMillimeters);
             vm.AcceptCoin(TestDefinitions.UsaNickel.MassGrams, TestDefinitions.UsaNickel.DiameterMillimeters);
 
-            vm.DispenseCoins(0.10m);
+            vm.DispenseCoins(vm.AmountInserted);
 
             Assert.AreEqual(vm.AmountInserted, 0m);
         }
