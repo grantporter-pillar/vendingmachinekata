@@ -8,7 +8,7 @@ This exercise demonstrates the use of TDD for development of a deceivingly compl
 * [.NET Framework 4.6.2](https://www.microsoft.com/en-us/download/details.aspx?id=53344)
 * Windows Forms "Virtual Vending Machine" test harness
 
-## Pre-Requsites
+## Pre-Requisites
 
 * Restore NuGet Packages for solution when prompted by Visual Studio, or right-click on the solution and select "Restore NuGet Packages"
 * MSTest.TestAdapter v1.3.2 and MSTest.TestFramework v1.3.2 are the only packages required outside of the .NET Framework
